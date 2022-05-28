@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script>
+    const ROOM_ID = "<%= roomId %>"
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="script.js" defer></script>
+  <title>Room chat</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <style>
+    #queue .active {
+      border: 1px solid rgb(175, 175, 175);
+    }
+
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      grid-auto-rows: 300px;
+    }
+
+    #queue {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    #queue>div {
+      height: 100px;
+      margin: 10px 0px 10px 0px;
+      padding: 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="container">
+  <div class="row">
+    <div class="col-12 col-sm-4">
+      <div style="display: flex;">
+        <input id="ytbInput" style="flex-grow: 1;" type="url" placeholder="Youtube url...">
+        <div>
+          <button class="btn btn-primary" type="button" id="add-new">Thêm</button>
+        </div>
+      </div>
+      <audio class="w-100 my-1" controls muted autoplay id="video"></audio>
+      <div class="w-100" id='queue'>
+        <div class="h-auto d-flex w-100">
+          <button class="mx-1 flex-grow-1 btn btn-warning">Next</button>
+          <button class="mx-1 flex-grow-1 btn btn-danger" type="button" id="clear">Xóa hàng chờ</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-8">
+      <div>
+        <input type="text" placeholder="Tên người dùng" name="username" id="username">
+        <strong>Đã kết nối :</strong>
+        <span id="connected-count">0</span>
+      </div>
+      <div id="message-container" class="my-1" style="height: 300px; border: 1px solid; overflow-y: auto;">
+
+      </div>
+      <div class="d-flex rounded border border-primary">
+        <input style="outline: none;" class="border-0 flex-grow-1" id="message" type="text" name="message">
+        <button id="send" class="btn btn-primary">Gửi</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
